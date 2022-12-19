@@ -47,17 +47,17 @@ import com.android.composegeomarker.presentation.theme.ComposeGeoMarkerTheme
 
 @Composable
 fun GeoMarkerTopBar() {
-  SmallTopAppBar(
-      title = { Text("Geo Marker") },
-      modifier = Modifier
-          .background(color = MaterialTheme.colorScheme.inversePrimary)
-  )
+    SmallTopAppBar(
+        title = { Text("Geo Marker") },
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.inversePrimary)
+    )
 }
 
 @Preview
 @Composable
 fun TopBarPreview() {
-  ComposeGeoMarkerTheme() {
-    GeoMarkerTopBar()
-  }
+    ComposeGeoMarkerTheme() {
+        GeoMarkerTopBar()
+    }
 }

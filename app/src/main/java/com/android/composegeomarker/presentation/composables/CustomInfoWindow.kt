@@ -50,30 +50,30 @@ import com.android.composegeomarker.presentation.theme.ComposeGeoMarkerTheme
 
 @Composable
 fun CustomInfoWindow(title: String?, description: String?) {
-  Column(
-      modifier = Modifier
-          .wrapContentWidth()
-          .background(Color.DarkGray)
-  ) {
-    Text(
-        title ?: "Title",
-        color = Color.White,
+    Column(
         modifier = Modifier
-            .padding(6.dp)
-    )
-    Text(
-        description ?: "Description",
-        color = Color.White,
-        modifier = Modifier
-            .padding(6.dp)
-    )
-  }
+            .wrapContentWidth()
+            .background(Color.DarkGray)
+    ) {
+        Text(
+            title ?: "Title",
+            color = Color.White,
+            modifier = Modifier
+                .padding(6.dp)
+        )
+        Text(
+            description ?: "Description",
+            color = Color.White,
+            modifier = Modifier
+                .padding(6.dp)
+        )
+    }
 }
 
 @Preview
 @Composable
 fun CustomInfoWindowPreview() {
-  ComposeGeoMarkerTheme {
-    CustomInfoWindow(title = "Test", description = "Test here and there")
-  }
+    ComposeGeoMarkerTheme {
+        CustomInfoWindow(title = "Test", description = "Test here and there")
+    }
 }

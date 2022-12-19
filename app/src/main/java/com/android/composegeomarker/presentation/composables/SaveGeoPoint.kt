@@ -57,55 +57,56 @@ import com.google.android.gms.maps.model.LatLng
 @Composable
 fun SaveGeoPoint(
     latLng: LatLng,
-    onPointSaved: (GeoPoints) -> Unit) {
-  Column(
-      modifier = Modifier
-          .fillMaxWidth()
-          .background(MaterialTheme.colorScheme.primary)
-  ) {
-    Text(
-        "${latLng.latitude}, ${latLng.latitude}",
-        color = Color.White,
-        modifier = Modifier
-            .padding(10.dp)
-    )
-
-    TextButton(
-        onClick = {},
+    onPointSaved: (GeoPoints) -> Unit
+) {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primary)
     ) {
-      Text(
-          modifier = Modifier
-              .padding(top = 16.dp)
-              .fillMaxWidth()
-              .clickable {
-                onPointSaved(
-                    GeoPoints(
-                        point = latLng,
-                        hideSavePointUi = false
-                    )
-                )
-              },
-          text = "Save Point",
-          color = Color.White,
-          textAlign = TextAlign.End
-      )
-    }
+        Text(
+            "${latLng.latitude}, ${latLng.latitude}",
+            color = Color.White,
+            modifier = Modifier
+                .padding(10.dp)
+        )
 
-  }
+        TextButton(
+            onClick = {},
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                        onPointSaved(
+                            GeoPoints(
+                                point = latLng,
+                                hideSavePointUi = false
+                            )
+                        )
+                    },
+                text = "Save Point",
+                color = Color.White,
+                textAlign = TextAlign.End
+            )
+        }
+
+    }
 }
 
 @Composable
 @Preview
 fun SaveGeoPointPreview() {
-  ComposeGeoMarkerTheme {
-    val latLng = LatLng(0.0, 0.0)
-    SaveGeoPoint(latLng) {
-      GeoPoints(
-          point = latLng,
-          hideSavePointUi = true
-      )
+    ComposeGeoMarkerTheme {
+        val latLng = LatLng(0.0, 0.0)
+        SaveGeoPoint(latLng) {
+            GeoPoints(
+                point = latLng,
+                hideSavePointUi = true
+            )
+        }
     }
-  }
 }

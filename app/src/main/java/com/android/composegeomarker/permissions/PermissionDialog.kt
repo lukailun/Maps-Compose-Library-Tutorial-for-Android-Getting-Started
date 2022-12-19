@@ -57,47 +57,47 @@ fun PermissionDialog(
     permissionAction: (PermissionAction) -> Unit
 ) {
 
-  val isPermissionGranted = checkIfPermissionGranted(context, permission)
+    val isPermissionGranted = checkIfPermissionGranted(context, permission)
 
-  if (isPermissionGranted) {
-    permissionAction(PermissionAction.PermissionGranted)
-    return
-  }
+    if (isPermissionGranted) {
+        permissionAction(PermissionAction.PermissionGranted)
+        return
+    }
 
-  val permissionsLauncher = rememberLauncherForActivityResult(
-      ActivityResultContracts.RequestPermission()
-  ) { isGranted: Boolean ->
-    if (isGranted) {
-      permissionAction(PermissionAction.PermissionGranted)
+    val permissionsLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            permissionAction(PermissionAction.PermissionGranted)
+        } else {
+            permissionAction(PermissionAction.PermissionDenied)
+        }
+    }
+
+    val showPermissionRationale = shouldShowPermissionRationale(context, permission)
+
+    if (showPermissionRationale) {
+        LaunchedEffect(showPermissionRationale) {
+
+            val snackbarResult = snackbarHostState.showSnackbar(
+                message = permissionRationale,
+                actionLabel = "Grant Access",
+                duration = SnackbarDuration.Long
+
+            )
+            when (snackbarResult) {
+                SnackbarResult.Dismissed -> {
+                    permissionAction(PermissionAction.PermissionDenied)
+                }
+                SnackbarResult.ActionPerformed -> {
+                    permissionsLauncher.launch(permission)
+                }
+            }
+        }
     } else {
-      permissionAction(PermissionAction.PermissionDenied)
-    }
-  }
-
-  val showPermissionRationale = shouldShowPermissionRationale(context, permission)
-
-  if (showPermissionRationale) {
-    LaunchedEffect(showPermissionRationale) {
-
-      val snackbarResult = snackbarHostState.showSnackbar(
-          message = permissionRationale,
-          actionLabel = "Grant Access",
-          duration = SnackbarDuration.Long
-
-      )
-      when (snackbarResult) {
-        SnackbarResult.Dismissed -> {
-          permissionAction(PermissionAction.PermissionDenied)
+        SideEffect {
+            permissionsLauncher.launch(permission)
         }
-        SnackbarResult.ActionPerformed -> {
-          permissionsLauncher.launch(permission)
-        }
-      }
-    }
-  } else {
-    SideEffect {
-      permissionsLauncher.launch(permission)
-    }
 
-  }
+    }
 }

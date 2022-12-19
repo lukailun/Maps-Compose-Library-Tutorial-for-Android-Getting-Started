@@ -106,17 +106,17 @@ fun ComposeGeoMarkerTheme(
     content: @Composable () -> Unit
 ) {
 
-  val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-  val colorScheme = when {
-    dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
-    dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
-    darkTheme -> DarkThemeColors
-    else -> LightThemeColors
-  }
+    val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colorScheme = when {
+        dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> DarkThemeColors
+        else -> LightThemeColors
+    }
 
-  MaterialTheme(
-      colorScheme = colorScheme,
-      typography = Typography,
-      content = content
-  )
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
 }

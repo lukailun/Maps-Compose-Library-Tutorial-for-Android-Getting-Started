@@ -37,6 +37,6 @@
 package com.android.composegeomarker.permissions
 
 sealed class PermissionAction {
-  object PermissionGranted : PermissionAction()
-  object PermissionDenied : PermissionAction()
+    object PermissionGranted : PermissionAction()
+    object PermissionDenied : PermissionAction()
 }

@@ -54,24 +54,25 @@ fun GeoMarkerButton(
     modifier: Modifier,
     drawPolygon: Boolean,
     areaPoints: MutableList<LatLng>,
-    callback: (Boolean) -> Unit) {
-  Button(
-      onClick = {
-        if (drawPolygon) {
-          callback(false)
-        } else {
-          callback(true)
-        }
-      },
-      modifier = modifier,
-      enabled = areaPoints.isNotEmpty() && areaPoints.size > 2
-  ) {
-    Icon(
-        imageVector = if (drawPolygon) Icons.Filled.Refresh else Icons.Filled.Check,
-        contentDescription = "Complete",
-        modifier = Modifier.size(ButtonDefaults.IconSize)
-    )
-    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-    Text(text = if (drawPolygon) "Retry" else "Complete")
-  }
+    callback: (Boolean) -> Unit
+) {
+    Button(
+        onClick = {
+            if (drawPolygon) {
+                callback(false)
+            } else {
+                callback(true)
+            }
+        },
+        modifier = modifier,
+        enabled = areaPoints.isNotEmpty() && areaPoints.size > 2
+    ) {
+        Icon(
+            imageVector = if (drawPolygon) Icons.Filled.Refresh else Icons.Filled.Check,
+            contentDescription = "Complete",
+            modifier = Modifier.size(ButtonDefaults.IconSize)
+        )
+        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+        Text(text = if (drawPolygon) "Retry" else "Complete")
+    }
 }
