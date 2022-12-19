@@ -1,0 +1,104 @@
+plugins {
+  id  'kotlin-android'
+  id  'com.android.application'
+  id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+}
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+
+  defaultConfig {
+    applicationId "com.android.composegeomarker"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    manifestPlaceholders = [MAPS_API_KEY: ""]
+    vectorDrawables {
+      useSupportLibrary true
+    }
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  buildFeatures {
+    viewBinding true
+    compose true
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion '1.2.0'
+  }
+  packagingOptions {
+    resources {
+      excludes += '/META-INF/{AL2.0,LGPL2.1}'
+    }
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  // Support Libraries
+  implementation 'androidx.appcompat:appcompat:1.4.2'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation "androidx.compose.ui:ui:$compose_version"
+  implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+  implementation "androidx.navigation:navigation-compose:2.5.0"
+  implementation "androidx.compose.material3:material3:1.0.0-alpha14"
+  implementation "androidx.compose.material3:material3-window-size-class:1.0.0-alpha14"
+  implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+  implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
+  implementation 'androidx.activity:activity-compose:1.5.0'
+
+  // Testing Dependencies
+  testImplementation 'junit:junit:4.13.2'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+  // SplashScreen compat library
+  implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
+  debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+  debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+  // Compose Map
+  implementation  "com.google.maps.android:maps-compose:2.4.0"
+  implementation 'com.google.android.gms:play-services-maps:18.1.0'
+  implementation "com.google.android.gms:play-services-location:20.0.0"
+  implementation 'com.google.maps.android:android-maps-utils:2.3.0'
+
+  // Coroutines
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
+
+  // Lifecycle
+  implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01"
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha01'
+
+  // UI Testing
+  androidTestImplementation "androidx.test:core:$androidx_test_version"
+  androidTestImplementation "androidx.test:rules:$androidx_test_version"
+  androidTestImplementation "androidx.test:runner:$androidx_test_version"
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+  androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.3'
+  androidTestImplementation 'junit:junit:4.13.2'
+  androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+
+}
+
+secrets {
+  defaultPropertiesFileName 'local.properties'
+}
