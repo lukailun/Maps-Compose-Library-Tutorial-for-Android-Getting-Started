@@ -59,38 +59,43 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
 
-  private val fusedLocationClient: FusedLocationProviderClient by lazy {
-    LocationServices.getFusedLocationProviderClient(this)
-  }
-
-  private val geoMarkerViewModel: GeoMarkerViewModel by viewModels()
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    setContent {
-      val snackbarHostState = remember { SnackbarHostState() }
-      val navController = rememberNavController()
-      ComposeGeoMarkerTheme {
-        AppNavigation(
-            navController = navController,
-            snackbarHostState = snackbarHostState,
-            geoMarkerViewModel = geoMarkerViewModel,
-            fetchLocationUpdates = ::fetchLocationUpdates
-        )
-      }
+    private val fusedLocationClient: FusedLocationProviderClient by lazy {
+        LocationServices.getFusedLocationProviderClient(this)
     }
-  }
 
-  private fun fetchLocationUpdates() {
-    lifecycleScope.launch {
-      lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-        fusedLocationClient.locationFlow().collect {
-          it?.let { location ->
-            geoMarkerViewModel.setCurrentLatLng(LatLng(location.latitude, location.longitude))
-          }
+    private val geoMarkerViewModel: GeoMarkerViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            val snackbarHostState = remember { SnackbarHostState() }
+            val navController = rememberNavController()
+            ComposeGeoMarkerTheme {
+                AppNavigation(
+                    navController = navController,
+                    snackbarHostState = snackbarHostState,
+                    geoMarkerViewModel = geoMarkerViewModel,
+                    fetchLocationUpdates = ::fetchLocationUpdates
+                )
+            }
         }
-      }
     }
-  }
+
+    private fun fetchLocationUpdates() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                fusedLocationClient.locationFlow().collect {
+                    it?.let { location ->
+                        geoMarkerViewModel.setCurrentLatLng(
+                            LatLng(
+                                location.latitude,
+                                location.longitude
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
 }

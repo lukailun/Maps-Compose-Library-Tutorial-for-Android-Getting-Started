@@ -57,34 +57,34 @@ fun MapsScreen(
     navController: NavController,
     fetchLocationUpdates: () -> Unit
 ) {
-  Scaffold(
-      topBar = { GeoMarkerTopBar() },
-      content = { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-          MapScreenContent(snackbarHostState, fetchLocationUpdates)
-          SnackbarHost(
-              hostState = snackbarHostState,
-              modifier = Modifier
-                  .wrapContentHeight(Alignment.Bottom)
-                  .align(Alignment.BottomCenter)
-          )
+    Scaffold(
+        topBar = { GeoMarkerTopBar() },
+        content = { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                MapScreenContent(snackbarHostState, fetchLocationUpdates)
+                SnackbarHost(
+                    hostState = snackbarHostState,
+                    modifier = Modifier
+                        .wrapContentHeight(Alignment.Bottom)
+                        .align(Alignment.BottomCenter)
+                )
+            }
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                modifier = Modifier
+                    .padding(16.dp),
+                onClick = {
+                    navController.navigate(Screens.GeoMarkerScreen.route)
+                },
+                icon = {
+                    Icon(
+                        Icons.Filled.Add,
+                        contentDescription = "Create"
+                    )
+                },
+                text = { Text("Mark Area") }
+            )
         }
-      },
-      floatingActionButton = {
-        ExtendedFloatingActionButton(
-            modifier = Modifier
-                .padding(16.dp),
-            onClick = {
-              navController.navigate(Screens.GeoMarkerScreen.route)
-            },
-            icon = {
-              Icon(
-                  Icons.Filled.Add,
-                  contentDescription = "Create"
-              )
-            },
-            text = { Text("Mark Area") }
-        )
-      }
-  )
+    )
 }

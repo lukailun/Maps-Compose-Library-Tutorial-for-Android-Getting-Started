@@ -54,19 +54,19 @@ fun AppNavigation(
     geoMarkerViewModel: GeoMarkerViewModel,
     fetchLocationUpdates: () -> Unit
 ) {
-  NavHost(
-      navController = navController,
-      startDestination = Screens.MapScreen.route
-  ) {
-    composable(Screens.MapScreen.route) {
-      MapsScreen(
-          snackbarHostState = snackbarHostState,
-          navController = navController,
-          fetchLocationUpdates = fetchLocationUpdates
-      )
+    NavHost(
+        navController = navController,
+        startDestination = Screens.MapScreen.route
+    ) {
+        composable(Screens.MapScreen.route) {
+            MapsScreen(
+                snackbarHostState = snackbarHostState,
+                navController = navController,
+                fetchLocationUpdates = fetchLocationUpdates
+            )
+        }
+        composable(Screens.GeoMarkerScreen.route) {
+            GeoMarkerScreen(geoMarkerViewModel)
+        }
     }
-    composable(Screens.GeoMarkerScreen.route) {
-      GeoMarkerScreen(geoMarkerViewModel)
-    }
-  }
 }
